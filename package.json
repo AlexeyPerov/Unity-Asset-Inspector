@@ -1,0 +1,14 @@
+{
+  "name": "assetinspector",
+  "version": "1.0.1",
+  "displayName": "AssetInspector",
+  "description": "Tool for Unity3D",
+  "unity": "2019.3",
+  "keywords": [
+    "tool"
+  ],
+  "author": {
+    "name": "AlexeyPerov",
+    "url": "https://github.com/AlexeyPerov/AssetInspector"
+  }
+}
