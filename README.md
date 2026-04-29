@@ -5,7 +5,7 @@
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity)
 
 ##
-Editor window for inspecting **Unity asset references**: it shows how each scanned asset hangs together in the project (serialized dependencies plus raw `guid:` usages), with optional Addressables / bundle context.
+Editor tool for inspecting **asset references**: it shows which dependencies selected assets have (serialized dependencies plus raw `guid:` usages), with optional Addressables / bundle context.
 
 All logic ships in **[AssetInspector.cs](./AssetInspector.cs)** so you can copy this file into `/Editor/` folder.
 
