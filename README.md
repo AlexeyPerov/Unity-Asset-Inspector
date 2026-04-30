@@ -1,4 +1,4 @@
-# Asset Inspector ![unity](https://img.shields.io/badge/Unity-100000?style=for-the-badge&logo=unity&logoColor=white)
+# Asset Inspector ~~![unity](https://img.shields.io/badge/Unity-100000?style=for-the-badge&logo=unity&logoColor=white)~~
 
 ![stability-stable](https://img.shields.io/badge/stability-stable-green.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)

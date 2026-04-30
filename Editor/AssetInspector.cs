@@ -248,7 +248,7 @@ namespace AssetInspector
                 GUIUtilities.HorizontalLine();
 
                 var refsData = results[_selectedObjects[i]];
-                var hdr = $"{i + 1}. {Path.GetFileNameWithoutExtension(refsData.Path)} — Dependencies: {refsData.DependencyTreeRowCount} External GUIDs: {refsData.ExternalGuids.Count}";
+                var hdr = $"{i + 1}. {Path.GetFileNameWithoutExtension(refsData.Path)} — Dependencies: {refsData.DependencyTreeRowCount}     External GUIDs: {refsData.ExternalGuids.Count}";
 
                 GUILayout.BeginHorizontal();
                 if (singleSelection)
@@ -278,17 +278,31 @@ namespace AssetInspector
                 EditorGUILayout.SelectableLabel($"Asset GUID: [{refsData.Guid}]",
                     GUILayout.Height(EditorGUIUtility.singleLineHeight * 1.2f));
 
-                refsData.DependencyFoldout = EditorGUILayout.Foldout(refsData.DependencyFoldout,
-                    DependenciesFoldoutContent);
+                if (refsData.Dependencies.Count > 0)
+                {
+                    refsData.DependencyFoldout = EditorGUILayout.Foldout(refsData.DependencyFoldout,
+                        DependenciesFoldoutContent);
 
-                if (refsData.DependencyFoldout)
-                    DrawDependencies(refsData);
+                    if (refsData.DependencyFoldout)
+                        DrawDependencies(refsData);
+                }
+                else
+                {
+                    GUILayout.Label("> No dependencies found");
+                }
 
-                refsData.ExternalGuidsFoldout = EditorGUILayout.Foldout(refsData.ExternalGuidsFoldout,
-                    ExternalGuidsFoldoutContent);
+                if (refsData.ExternalGuids.Count > 0)
+                {
+                    refsData.ExternalGuidsFoldout = EditorGUILayout.Foldout(refsData.ExternalGuidsFoldout,
+                        ExternalGuidsFoldoutContent);
 
-                if (refsData.ExternalGuidsFoldout)
-                    DrawExternalGuids(refsData);
+                    if (refsData.ExternalGuidsFoldout)
+                        DrawExternalGuids(refsData);
+                }     
+                else
+                {
+                    GUILayout.Label("> No external GUIDs found");
+                }
             }
 
             EditorGUILayout.EndScrollView();
@@ -850,7 +864,7 @@ namespace AssetInspector
                 badgeSuffix += " [BUILT-IN]";
 
             if (d.IsInOtherAddressablesBundle)
-                badgeSuffix += " [CrossBundle]";
+                badgeSuffix += " [OtherBundle]";
 
             if (d.IsBuiltinExtra)
                 badgeSuffix += " [UnityBuiltIn]";
@@ -1750,10 +1764,15 @@ namespace AssetInspector
             private void PopulateFromAddressablesReflection()
             {
                 Type defaultObjectType = null;
-                foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
+                var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+
+                foreach (var assembly in assemblies)
                 {
-                    defaultObjectType = assembly.GetType(
+                    defaultObjectType ??= assembly.GetType(
                         "UnityEditor.AddressableAssets.Settings.AddressableAssetSettingsDefaultObject",
+                        false);
+                    defaultObjectType ??= assembly.GetType(
+                        "UnityEditor.AddressableAssets.AddressableAssetSettingsDefaultObject",
                         false);
 
                     if (defaultObjectType != null)
