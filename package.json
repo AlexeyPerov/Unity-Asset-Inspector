@@ -1,14 +1,16 @@
 {
-  "name": "assetinspector",
+  "name": "asset-inspector",
   "version": "1.0.2",
-  "displayName": "AssetInspector",
+  "displayName": "Asset Inspector",
   "description": "Tool for Unity3D",
-  "unity": "2019.3",
+  "unity": "2022.3",
   "keywords": [
+    "assets",
+    "dependencies",
     "tool"
   ],
   "author": {
     "name": "AlexeyPerov",
-    "url": "https://github.com/AlexeyPerov/AssetInspector"
+    "url": "https://github.com/AlexeyPerov/Unity-Asset-Inspector"
   }
 }
